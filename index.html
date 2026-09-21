@@ -2,16 +2,71 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Indica al sistema que la página está diseñada exclusivamente en tema claro -->
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#fff8dc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Declaramos que la página soporta ambos temas: esto evita que el navegador invente colores -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fff8dc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1505" media="(prefers-color-scheme: dark)">
   <title>Para ti 🌻</title>
 
   <style>
-    /* Bloquea el modo oscuro forzado en navegadores modernos */
     :root {
-      color-scheme: light only;
+      color-scheme: light dark;
+
+      --bg-1: #fffdf1;
+      --bg-2: #fff8d9;
+      --bg-3: #f7e9ad;
+      --halo: rgba(255, 241, 143, .75);
+      --glow: rgba(255, 214, 54, .18);
+
+      --card-bg: rgba(255, 255, 247, .92);
+      --card-border: rgba(185, 139, 24, .22);
+      --card-shadow: rgba(112, 82, 17, .16);
+
+      --text: #5b4212;
+      --text-soft: #72551e;
+      --accent: #bd8500;
+      --date: #a27a18;
+
+      --letter-bg: rgba(255, 248, 211, .95);
+      --letter-border: rgba(183, 137, 18, .18);
+      --signature: #a06f00;
+      --footer: #9a7a35;
+
+      --btn-1: #f5c928;
+      --btn-2: #dda400;
+      --btn-text: #4d3507;
+      --btn-shadow: rgba(185, 132, 0, .22);
+      --btn-shadow-hover: rgba(185, 132, 0, .3);
+    }
+
+    /* Tema oscuro propio: mismo espíritu cálido, sin inversión automática */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-1: #251c09;
+        --bg-2: #1c1505;
+        --bg-3: #120d03;
+        --halo: rgba(255, 214, 54, .16);
+        --glow: rgba(255, 214, 54, .14);
+
+        --card-bg: rgba(48, 36, 12, .92);
+        --card-border: rgba(245, 201, 40, .22);
+        --card-shadow: rgba(0, 0, 0, .55);
+
+        --text: #f6e6b8;
+        --text-soft: #e0cb95;
+        --accent: #ffd45e;
+        --date: #d9b55a;
+
+        --letter-bg: rgba(63, 47, 14, .92);
+        --letter-border: rgba(245, 201, 40, .2);
+        --signature: #ffd45e;
+        --footer: #c2a465;
+
+        --btn-text: #3a2704;
+        --btn-shadow: rgba(0, 0, 0, .45);
+        --btn-shadow-hover: rgba(0, 0, 0, .55);
+      }
     }
 
     * {
@@ -20,24 +75,28 @@
       padding: 0;
     }
 
+    html, body {
+      min-height: 100%;
+    }
+
     body {
-      min-height: 100vh;
       overflow-x: hidden;
       font-family: Georgia, "Times New Roman", serif;
-      color: #5b4212;
-      background-color: #fffdf1;
+      color: var(--text);
+      background-color: var(--bg-1);
       background:
-        radial-gradient(circle at 50% 20%, rgba(255, 241, 143, .75), transparent 28%),
-        linear-gradient(180deg, #fffdf1 0%, #fff8d9 45%, #f7e9ad 100%);
+        radial-gradient(circle at 50% 20%, var(--halo), transparent 28%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 45%, var(--bg-3) 100%);
+      background-attachment: fixed;
     }
 
     .page {
       position: relative;
-      min-height: 100vh;
+      min-height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 35px 18px 80px;
+      padding: calc(35px + env(safe-area-inset-top, 0px)) 18px calc(80px + env(safe-area-inset-bottom, 0px));
       isolation: isolate;
     }
 
@@ -46,7 +105,7 @@
       width: 300px;
       height: 300px;
       border-radius: 50%;
-      background: rgba(255, 214, 54, .18);
+      background: var(--glow);
       filter: blur(50px);
       z-index: -2;
       animation: glow 5s ease-in-out infinite alternate;
@@ -59,10 +118,10 @@
       width: min(92vw, 680px);
       padding: 42px 28px 38px;
       text-align: center;
-      border: 1px solid rgba(185, 139, 24, .22);
+      border: 1px solid var(--card-border);
       border-radius: 32px;
-      background: rgba(255, 255, 247, .92);
-      box-shadow: 0 22px 70px rgba(112, 82, 17, .16);
+      background: var(--card-bg);
+      box-shadow: 0 22px 70px var(--card-shadow);
       backdrop-filter: blur(10px);
       animation: appear 1.2s ease both;
     }
@@ -72,14 +131,14 @@
       font-size: .78rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: #a27a18;
+      color: var(--date);
       margin-bottom: 17px;
     }
 
     h1 {
       font-size: clamp(2.3rem, 10vw, 4.8rem);
       line-height: .95;
-      color: #bd8500;
+      color: var(--accent);
       margin-bottom: 12px;
       text-shadow: 0 3px 20px rgba(255, 199, 42, .2);
     }
@@ -87,7 +146,7 @@
     .subtitle {
       font-size: clamp(1.05rem, 4vw, 1.35rem);
       line-height: 1.6;
-      color: #72551e;
+      color: var(--text-soft);
       margin: 0 auto 27px;
       max-width: 520px;
     }
@@ -100,16 +159,19 @@
     }
 
     .flower {
+      --s: 1;
       position: absolute;
       width: 72px;
       height: 72px;
+      z-index: 1;
       animation: sway 4s ease-in-out infinite;
     }
 
-    .flower:nth-child(1) { left: 20px; top: 58px; transform: scale(.85); }
-    .flower:nth-child(2) { left: 78px; top: 17px; transform: scale(1.05); animation-delay: -.8s; }
-    .flower:nth-child(3) { left: 140px; top: 55px; transform: scale(.9); animation-delay: -1.7s; }
-    .flower:nth-child(4) { left: 73px; top: 78px; transform: scale(.72); animation-delay: -2.5s; }
+    /* El centro de la flor es ahora el punto (36px, 36px) de su caja */
+    .flower:nth-child(1) { left: 20px; top: 71px; --s: .85; }
+    .flower:nth-child(2) { left: 78px; top: 30px; --s: 1.05; animation-delay: -.8s; }
+    .flower:nth-child(3) { left: 140px; top: 68px; --s: .9; animation-delay: -1.7s; }
+    .flower:nth-child(4) { left: 73px; top: 91px; --s: .72; animation-delay: -2.5s; }
 
     .petal {
       position: absolute;
@@ -119,7 +181,8 @@
       top: 2px;
       border-radius: 50% 50% 48% 48%;
       background: linear-gradient(145deg, #fff27a, #f6bd18);
-      transform-origin: 50% 100%;
+      /* Giran alrededor del centro real de la flor, no de su propia base */
+      transform-origin: 50% 34px;
       box-shadow: inset -4px -5px 8px rgba(190, 128, 0, .12);
     }
 
@@ -134,10 +197,10 @@
 
     .center {
       position: absolute;
-      width: 31px;
-      height: 31px;
-      left: 21px;
-      top: 21px;
+      width: 34px;
+      height: 34px;
+      left: 19px;
+      top: 19px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 30%, #8b5b0b, #4d3004);
       box-shadow: 0 2px 5px rgba(70, 45, 0, .3);
@@ -150,6 +213,7 @@
       left: 45px;
       width: 140px;
       height: 75px;
+      z-index: 0;
     }
 
     .stem {
@@ -182,18 +246,18 @@
       border: 0;
       border-radius: 999px;
       padding: 14px 27px;
-      background: linear-gradient(135deg, #f5c928, #dda400);
-      color: #4d3507;
+      background: linear-gradient(135deg, var(--btn-1), var(--btn-2));
+      color: var(--btn-text);
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 9px 25px rgba(185, 132, 0, .22);
+      box-shadow: 0 9px 25px var(--btn-shadow);
       transition: transform .2s ease, box-shadow .2s ease;
     }
 
     button:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(185, 132, 0, .3);
+      box-shadow: 0 12px 30px var(--btn-shadow-hover);
     }
 
     button:active {
@@ -221,8 +285,8 @@
     .letter {
       padding: 25px 22px;
       border-radius: 22px;
-      background: rgba(255, 248, 211, .95);
-      border: 1px solid rgba(183, 137, 18, .18);
+      background: var(--letter-bg);
+      border: 1px solid var(--letter-border);
       line-height: 1.8;
       font-size: 1.06rem;
     }
@@ -234,7 +298,7 @@
     .signature {
       margin-top: 18px;
       font-size: 1.2rem;
-      color: #a06f00;
+      color: var(--signature);
       font-weight: bold;
     }
 
@@ -269,7 +333,7 @@
       margin-top: 25px;
       font-family: Arial, sans-serif;
       font-size: .76rem;
-      color: #9a7a35;
+      color: var(--footer);
       opacity: .8;
     }
 
@@ -279,8 +343,8 @@
     }
 
     @keyframes sway {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(4deg) translateY(-3px); }
+      0%, 100% { transform: rotate(-3deg) scale(var(--s)); }
+      50% { transform: rotate(4deg) translateY(-3px) scale(var(--s)); }
     }
 
     @keyframes glow {
@@ -294,9 +358,14 @@
       100% { transform: translate3d(-20px, 110vh, 0) rotate(420deg); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .glow, .falling { animation: none; }
+      .flower { animation: none; transform: scale(var(--s)); }
+    }
+
     @media (max-width: 480px) {
       .page {
-        padding: 22px 12px 50px;
+        padding: calc(22px + env(safe-area-inset-top, 0px)) 12px calc(50px + env(safe-area-inset-bottom, 0px));
       }
 
       .card {
