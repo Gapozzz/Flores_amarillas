@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <!-- Declaramos que la página soporta ambos temas: esto evita que el navegador invente colores -->
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#fff8dc" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1c1505" media="(prefers-color-scheme: dark)">
@@ -40,7 +39,6 @@
       --btn-shadow-hover: rgba(185, 132, 0, .3);
     }
 
-    /* Tema oscuro propio: mismo espíritu cálido, sin inversión automática */
     @media (prefers-color-scheme: dark) {
       :root {
         --bg-1: #251c09;
@@ -166,8 +164,6 @@
       z-index: 1;
       animation: sway 4s ease-in-out infinite;
     }
-
-    /* El centro de la flor es ahora el punto (36px, 36px) de su caja */
     .flower:nth-child(1) { left: 20px; top: 71px; --s: .85; }
     .flower:nth-child(2) { left: 78px; top: 30px; --s: 1.05; animation-delay: -.8s; }
     .flower:nth-child(3) { left: 140px; top: 68px; --s: .9; animation-delay: -1.7s; }
@@ -181,7 +177,6 @@
       top: 2px;
       border-radius: 50% 50% 48% 48%;
       background: linear-gradient(145deg, #fff27a, #f6bd18);
-      /* Giran alrededor del centro real de la flor, no de su propia base */
       transform-origin: 50% 34px;
       box-shadow: inset -4px -5px 8px rgba(190, 128, 0, .12);
     }
