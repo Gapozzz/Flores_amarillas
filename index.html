@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Indica al sistema que la página está diseñada exclusivamente en tema claro -->
+  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#fff8dc">
   <title>Para ti 🌻</title>
 
   <style>
+    /* Bloquea el modo oscuro forzado en navegadores modernos */
+    :root {
+      color-scheme: light only;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,6 +25,7 @@
       overflow-x: hidden;
       font-family: Georgia, "Times New Roman", serif;
       color: #5b4212;
+      background-color: #fffdf1;
       background:
         radial-gradient(circle at 50% 20%, rgba(255, 241, 143, .75), transparent 28%),
         linear-gradient(180deg, #fffdf1 0%, #fff8d9 45%, #f7e9ad 100%);
@@ -53,7 +61,7 @@
       text-align: center;
       border: 1px solid rgba(185, 139, 24, .22);
       border-radius: 32px;
-      background: rgba(255, 255, 247, .72);
+      background: rgba(255, 255, 247, .92);
       box-shadow: 0 22px 70px rgba(112, 82, 17, .16);
       backdrop-filter: blur(10px);
       animation: appear 1.2s ease both;
@@ -213,7 +221,7 @@
     .letter {
       padding: 25px 22px;
       border-radius: 22px;
-      background: rgba(255, 248, 211, .85);
+      background: rgba(255, 248, 211, .95);
       border: 1px solid rgba(183, 137, 18, .18);
       line-height: 1.8;
       font-size: 1.06rem;
